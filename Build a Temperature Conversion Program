@@ -1,0 +1,37 @@
+package Temperature;
+
+import java.util.Scanner;
+public class TemperatureConversion {
+	 public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.println("Temperature Conversion Program");
+	        System.out.println("--------------------------------");
+
+	        // Get user input
+	        System.out.print("Enter temperature value: ");
+	        double temperature = scanner.nextDouble();
+	        System.out.print("Enter original unit (C/F/K): ");
+	        String originalUnit = scanner.next().toUpperCase();
+
+	        // Convert temperature
+	        if (originalUnit.equals("C")) {
+	            double fahrenheit = temperature * 9 / 5 + 32;
+	            double kelvin = temperature + 273.15;
+	            System.out.printf("%.2f°C is equal to %.2f°F and %.2fK%n", temperature, fahrenheit, kelvin);
+	        } else if (originalUnit.equals("F")) {
+	            double celsius = (temperature - 32) * 5 / 9;
+	            double kelvin = (temperature - 32) * 5 / 9 + 273.15;
+	            System.out.printf("%.2f°F is equal to %.2f°C and %.2fK%n", temperature, celsius, kelvin);
+	        } else if (originalUnit.equals("K")) {
+	            double celsius = temperature - 273.15;
+	            double fahrenheit = (temperature - 273.15) * 9 / 5 + 32;
+	            System.out.printf("%.2fK is equal to %.2f°C and %.2f°F%n", temperature, celsius, fahrenheit);
+	        } else {
+	            System.out.println("Invalid unit. Please enter C, F, or K.");
+	        }
+
+	        scanner.close();
+	    }
+
+}
