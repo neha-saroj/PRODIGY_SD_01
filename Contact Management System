@@ -1,0 +1,142 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+public class ContactManager {
+	 private Map<String, Contact> contacts;
+
+	    public ContactManager() {
+	        this.contacts = new HashMap<>();
+	    }
+
+	    public void addContact() {
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.print("Enter contact name: ");
+	        String name = scanner.nextLine();
+
+	        System.out.print("Enter phone number: ");
+	        String phone = scanner.nextLine();
+
+	        System.out.print("Enter email address: ");
+	        String email = scanner.nextLine();
+
+	        Contact contact = new Contact(phone, email);
+	        contacts.put(name, contact);
+
+	        System.out.println("Contact added successfully!");
+	    }
+
+	    public void viewContacts() {
+	        for (Map.Entry<String, Contact> entry : contacts.entrySet()) {
+	            System.out.println("Name: " + entry.getKey());
+	            System.out.println("Phone: " + entry.getValue().getPhone());
+	            System.out.println("Email: " + entry.getValue().getEmail());
+	            System.out.println("------------------------");
+	        }
+	    }
+
+	    public void editContact() {
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.print("Enter contact name to edit: ");
+	        String name = scanner.nextLine();
+
+	        if (contacts.containsKey(name)) {
+	            System.out.print("Enter new phone number (press enter to skip): ");
+	            String phone = scanner.nextLine();
+
+	            System.out.print("Enter new email address (press enter to skip): ");
+	            String email = scanner.nextLine();
+
+	            if (!phone.isEmpty()) {
+	                contacts.get(name).setPhone(phone);
+	            }
+
+	            if (!email.isEmpty()) {
+	                contacts.get(name).setEmail(email);
+	            }
+
+	            System.out.println("Contact updated successfully!");
+	        } else {
+	            System.out.println("Contact not found!");
+	        }
+	    }
+
+	    public void deleteContact() {
+	        Scanner scanner = new Scanner(System.in);
+
+	        System.out.print("Enter contact name to delete: ");
+	        String name = scanner.nextLine();
+
+	        if (contacts.containsKey(name)) {
+	            contacts.remove(name);
+	            System.out.println("Contact deleted successfully!");
+	        } else {
+	            System.out.println("Contact not found!");
+	        }
+	    }
+
+	    public static void main(String[] args) {
+	        ContactManager manager = new ContactManager();
+	        Scanner scanner = new Scanner(System.in);
+
+	        while (true) {
+	            System.out.println("Contact Management System");
+	            System.out.println("1. Add Contact");
+	            System.out.println("2. View Contacts");
+	            System.out.println("3. Edit Contact");
+	            System.out.println("4. Delete Contact");
+	            System.out.println("5. Exit");
+	            System.out.print("Enter your choice: ");
+	            int choice = scanner.nextInt();
+	            scanner.nextLine(); // Consume newline left-over
+
+	            switch (choice) {
+	                case 1:
+	                    manager.addContact();
+	                    break;
+	                case 2:
+	                    manager.viewContacts();
+	                    break;
+	                case 3:
+	                    manager.editContact();
+	                    break;
+	                case 4:
+	                    manager.deleteContact();
+	                    break;
+	                case 5:
+	                    System.exit(0);
+	                    break;
+	                default:
+	                    System.out.println("Invalid choice. Please try again.");
+	            }
+	        }
+	    }
+	}
+
+	class Contact {
+	    private String phone;
+	    private String email;
+
+	    public Contact(String phone, String email) {
+	        this.phone = phone;
+	        this.email = email;
+	    }
+
+	    public String getPhone() {
+	        return phone;
+	    }
+
+	    public void setPhone(String phone) {
+	        this.phone = phone;
+	    }
+
+	    public String getEmail() {
+	        return email;
+	    }
+
+	    public void setEmail(String email) {
+	        this.email = email;
+	    }
+
+}
